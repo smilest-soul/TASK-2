@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Temperature Converter</title>
+    <style>
+        body {
+            background-color: rgb(39, 228, 196); /* You can change 'lightblue' to any color you prefer. */
+        }
+    </style>
+</head>
+<body>
+    <h1>Temperature Converter</h1>
+    <div class="converter">
+        <input type="number" id="temperature" placeholder="Enter temperature" step="0.01" required>
+        <select id="unit">
+            <option value="celsius">Celsius</option>
+            <option value="fahrenheit">Fahrenheit</option>
+            <option value="kelvin">Kelvin</option>
+        </select>
+        <button id="convert">Convert</button>
+    </div>
+    <div class="result">
+        <p id="result-text"></p>
+    </div>
+
+    <script>
+        const convertButton = document.getElementById('convert');
+        const temperatureInput = document.getElementById('temperature');
+        const unitSelect = document.getElementById('unit');
+        const resultText = document.getElementById('result-text');
+
+        convertButton.addEventListener('click', () => {
+            const temperature = parseFloat(temperatureInput.value);
+            const selectedUnit = unitSelect.value;
+            let result;
+
+            if (isNaN(temperature)) {
+                result = 'Please enter a valid number.';
+            } else {
+                if (selectedUnit === 'celsius') {
+                    result = `${temperature}°C is equal to ${celsiusToFahrenheit(temperature)}°F and ${celsiusToKelvin(temperature)}K.`;
+                } else if (selectedUnit === 'fahrenheit') {
+                    result = `${temperature}°F is equal to ${fahrenheitToCelsius(temperature)}°C and ${fahrenheitToKelvin(temperature)}K.`;
+                } else if (selectedUnit === 'kelvin') {
+                    result = `${temperature}K is equal to ${kelvinToCelsius(temperature)}°C and ${kelvinToFahrenheit(temperature)}°F.`;
+                }
+            }
+
+            resultText.textContent = result;
+        });
+
+        // Conversion functions
+        function celsiusToFahrenheit(celsius) {
+            return (celsius * 9/5) + 32;
+        }
+
+        function celsiusToKelvin(celsius) {
+            return celsius + 273.15;
+        }
+
+        function fahrenheitToCelsius(fahrenheit) {
+            return (fahrenheit - 32) * 5/9;
+        }
+
+        function fahrenheitToKelvin(fahrenheit) {
+            return (fahrenheit - 32) * 5/9 + 273.15;
+        }
+
+        function kelvinToCelsius(kelvin) {
+            return kelvin - 273.15;
+        }
+
+        function kelvinToFahrenheit(kelvin) {
+            return (kelvin - 273.15) * 9/5 + 32;
+        }
+    </script>
+</body>
+</html>
